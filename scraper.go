@@ -12,10 +12,46 @@ type Item struct {
 	ImgUrl string `json:"imgurl"`
 }
 
-func complex() {
-	var x bool
-	if x == true {
+func complex(a uint32) {
+	b := 3
+	c := 4
+	d := 3
+	e := 4
+	f := 3
+	g := 4
+	h := 3
+	i := 4
+
+	if a == 10 {
+		fmt.Println(a)
+	} else if a == 9 {
+		fmt.Println(a)
+	} else if a == 8 {
+		fmt.Println(a)
+	} else if a == 7 {
+		fmt.Println(a)
+	} else if a == 6 {
+		fmt.Println(a)
+	} else if a == 5 {
+		fmt.Println(a)
+	} else if a == 4 {
+		fmt.Println(a)
+	} else if a == 3 {
+		fmt.Println(a)
+	} else if a == 2 {
+		fmt.Println(a)
+	} else if a == 1 {
+		fmt.Println(a)
 	}
+
+	fmt.Println(b)
+	fmt.Println(c)
+	fmt.Println(d)
+	fmt.Println(e)
+	fmt.Println(f)
+	fmt.Println(g)
+	fmt.Println(h)
+	fmt.Println(i)
 
 }
 
@@ -27,7 +63,7 @@ const IMG_SELECTOR = "div.searchProductImage img"
 func main() {
 	c := colly.NewCollector()
 	colly.AllowedDomains("gamestop.ca")
-	complex()
+	complex(1)
 
 	c.OnHTML(ITEM_SELECTOR, func(h *colly.HTMLElement) {
 
