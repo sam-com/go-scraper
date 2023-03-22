@@ -21,26 +21,21 @@ const TITLE_SELECTOR = "h3.searchProductTitle"
 const PRICE_SELECTOR = "div.searchTilePriceMobile .price-new"
 const IMG_SELECTOR = "div.searchProductImage img"
 
-func downloadFile2(url, filename string) error {
-	response, err := http.Get(url)
+func a() {
+	fmt.Println("allo 1")
+	fmt.Println("allo 2")
+	fmt.Println("allo 3")
+	fmt.Println("allo 4")
+}
 
-	if err != nil {
-		return err
-	}
-	defer response.Body.Close()
+func b() {
+	fmt.Println("allo 5")
+	fmt.Println("allo 6")
+	fmt.Println("allo 7")
+	fmt.Println("allo 8")
+	fmt.Println("allo 9")
+	fmt.Println("allo 10")
 
-	file, err := os.Create("images/" + filename)
-
-	if err != nil {
-		return err
-	}
-
-	_, err = io.Copy(file, response.Body)
-	if err != nil {
-		return err
-	}
-
-	return nil
 }
 
 func downloadFile(url, filename string) error {
