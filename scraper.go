@@ -1,7 +1,11 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"io"
+	"net/http"
+	"os"
 
 	"github.com/gocolly/colly"
 )
@@ -12,58 +16,60 @@ type Item struct {
 	ImgUrl string `json:"imgurl"`
 }
 
-func complex(a uint32) {
-	b := 3
-	c := 4
-	d := 3
-	e := 4
-	f := 3
-	g := 4
-	h := 3
-	i := 4
-
-	if a == 10 {
-		fmt.Println(a)
-	} else if a == 9 {
-		fmt.Println(a)
-	} else if a == 8 {
-		fmt.Println(a)
-	} else if a == 7 {
-		fmt.Println(a)
-	} else if a == 6 {
-		fmt.Println(a)
-	} else if a == 5 {
-		fmt.Println(a)
-	} else if a == 4 {
-		fmt.Println(a)
-	} else if a == 3 {
-		fmt.Println(a)
-	} else if a == 2 {
-		fmt.Println(a)
-	} else if a == 1 {
-		fmt.Println(a)
-	}
-
-	fmt.Println(b)
-	fmt.Println(c)
-	fmt.Println(d)
-	fmt.Println(e)
-	fmt.Println(f)
-	fmt.Println(g)
-	fmt.Println(h)
-	fmt.Println(i)
-
-}
-
 const ITEM_SELECTOR = "div[data-product]"
 const TITLE_SELECTOR = "h3.searchProductTitle"
 const PRICE_SELECTOR = "div.searchTilePriceMobile .price-new"
 const IMG_SELECTOR = "div.searchProductImage img"
 
+func downloadFile2(url, filename string) error {
+	response, err := http.Get(url)
+
+	if err != nil {
+		return err
+	}
+	defer response.Body.Close()
+
+	file, err := os.Create("images/" + filename)
+
+	if err != nil {
+		return err
+	}
+
+	_, err = io.Copy(file, response.Body)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func downloadFile(url, filename string) error {
+	response, err := http.Get(url)
+
+	if err != nil {
+		return err
+	}
+	defer response.Body.Close()
+
+	file, err := os.Create("images/" + filename)
+
+	if err != nil {
+		return err
+	}
+
+	_, err = io.Copy(file, response.Body)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func main() {
 	c := colly.NewCollector()
 	colly.AllowedDomains("gamestop.ca")
-	complex(1)
+
+	var items []Item
 
 	c.OnHTML(ITEM_SELECTOR, func(h *colly.HTMLElement) {
 
@@ -73,9 +79,16 @@ func main() {
 			ImgUrl: h.ChildAttr(IMG_SELECTOR, "data-llsrc"),
 		}
 
-		fmt.Println(item)
-		fmt.Println("allo")
+		err := downloadFile(item.ImgUrl, item.Name+".jpg")
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		items = append(items, item)
 	})
 
 	c.Visit("https://www.gamestop.ca/SearchResult/QuickSearch?productType=2&platform=405&variantType=1")
+	content, _ := json.Marshal(items)
+
+	os.WriteFile("games.json", content, 0644)
 }
