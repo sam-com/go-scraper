@@ -21,21 +21,22 @@ const TITLE_SELECTOR = "h3.searchProductTitle"
 const PRICE_SELECTOR = "div.searchTilePriceMobile .price-new"
 const IMG_SELECTOR = "div.searchProductImage img"
 
-func a() {
-	fmt.Println("allo 1")
-	fmt.Println("allo 2")
-	fmt.Println("allo 3")
-	fmt.Println("allo 4")
-}
-
-func b() {
-	fmt.Println("allo 5")
-	fmt.Println("allo 6")
-	fmt.Println("allo 7")
-	fmt.Println("allo 8")
-	fmt.Println("allo 9")
-	fmt.Println("allo 10")
-
+func complex(a uint32) uint32 {
+	if a == 11 {
+		return 11
+	} else if a == 10 {
+		return 10
+	} else if a == 9 {
+		return 9
+	} else if a == 8 {
+		return 8
+	} else if a == 7 {
+		return 7
+	} else if a == 6 {
+		return 6
+	} else {
+		return 0
+	}
 }
 
 func downloadFile(url, filename string) error {
