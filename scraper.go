@@ -34,6 +34,16 @@ func complex(a uint32) uint32 {
 		return 7
 	} else if a == 6 {
 		return 6
+	} else if a == 5 {
+		return 5
+	} else if a == 4 {
+		return 4
+	} else if a == 3 {
+		return 3
+	} else if a == 2 {
+		return 2
+	} else if a == 1 {
+		return 1
 	} else {
 		return 0
 	}
